@@ -38,9 +38,9 @@ You should have received a copy of the GNU Lesser General Public License along w
             <?tag js?>
         </dependency>
         <dependency>
-            <groupId>tribefire.extension.js</groupId>
+            <groupId>tribefire.cortex</groupId>
             <artifactId>js-deployment-model</artifactId>
-            <version>${V.tribefire.extension.js}</version>
+            <version>${V.tribefire.cortex}</version>
             <?tag asset?>
             <?tag js?>
         </dependency>
