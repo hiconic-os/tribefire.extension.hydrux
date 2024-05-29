@@ -2,7 +2,7 @@ import { eval_, reason, reflection, remote, util } from "../tribefire.js.tf-js-a
 import * as hx from "../tribefire.extension.hydrux.hydrux-api-2.1~/hydrux-api.js";
 import * as hxM from "../tribefire.extension.hydrux.hydrux-deployment-model-2.1~/ensure-hydrux-deployment-model.js";
 import { ServiceRequest, CallbackPushAddressing } from "../com.braintribe.gm.service-api-model-2.0~/ensure-service-api-model.js";
-import { UxModule } from "../tribefire.extension.js.js-deployment-model-3.0~/ensure-js-deployment-model.js";
+import { UxModule } from "../tribefire.cortex.js-deployment-model-3.0~/ensure-js-deployment-model.js";
 import Maybe = reason.Maybe;
 import EntityType = reflection.EntityType;
 export declare class HostSettings {

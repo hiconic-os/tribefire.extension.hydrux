@@ -14,7 +14,7 @@ import { HxLocalEvaluator } from "./ddsa.js";
 import { NotFound } from "../com.braintribe.gm.essential-reason-model-2.0~/ensure-essential-reason-model.js";
 import { ServiceRequest, CallbackPushAddressing } from "../com.braintribe.gm.service-api-model-2.0~/ensure-service-api-model.js";
 import { Reason } from "../com.braintribe.gm.gm-core-api-2.0~/ensure-gm-core-api.js";
-import { UxModule } from "../tribefire.extension.js.js-deployment-model-3.0~/ensure-js-deployment-model.js";
+import { UxModule } from "../tribefire.cortex.js-deployment-model-3.0~/ensure-js-deployment-model.js";
 var Maybe = reason.Maybe;
 export class HostSettings {
 }

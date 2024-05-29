@@ -19,11 +19,12 @@ const sessionIdCookieName = "tfsessionId";
     if (!sessionId)
         return redirectToLogin();
     const connection = tf.remote.connect($tfUxHostSettings.servicesUrl);
-    const sessionResponse = yield openSession();
-    if (!sessionResponse.successful) {
+    const sessionResponseMaybe = yield openSession();
+    if (sessionResponseMaybe.isUnsatisfied()) {
         deleteCookie(sessionIdCookieName);
         return redirectToLogin();
     }
+    const sessionResponse = sessionResponseMaybe.get();
     const servicesSession = connection.newSession(sessionResponse.userSession);
     const hxApplication = yield resolveHxApplication();
     if (!hxApplication)
@@ -48,8 +49,7 @@ const sessionIdCookieName = "tfsessionId";
             credentials.existingSessionId = sessionId;
             const openSession = securityApiM.OpenUserSession.create();
             openSession.credentials = credentials;
-            openSession.noExceptionOnFailure = true;
-            return openSession.EvalAndGet(connection.evaluator());
+            return openSession.EvalAndGetReasoned(connection.evaluator());
         });
     }
     /** Evaluates ResolveHxApplication for domainId and useCases from the settings. */

@@ -4,6 +4,8 @@ import * as hxApiM from "../tribefire.extension.hydrux.hydrux-api-model-2.1~/ens
 
 import { HxApplicationImpl, HostSettings, addToPath } from "./component-management.js";
 
+import Maybe = tf.reason.Maybe;
+
 declare var $tfUxHostSettings: HostSettings;
 
 const sessionIdCookieName = "tfsessionId";
@@ -17,12 +19,14 @@ const sessionIdCookieName = "tfsessionId";
         return redirectToLogin();
 
     const connection = tf.remote.connect($tfUxHostSettings.servicesUrl);
-    const sessionResponse = await openSession();
+    const sessionResponseMaybe = await openSession();
 
-    if (!sessionResponse.successful) {
+    if (sessionResponseMaybe.isUnsatisfied()) {
         deleteCookie(sessionIdCookieName);
         return redirectToLogin();
     }
+
+    const sessionResponse = sessionResponseMaybe.get();
 
     const servicesSession = connection.newSession(sessionResponse.userSession);
 
@@ -51,15 +55,14 @@ const sessionIdCookieName = "tfsessionId";
     body.appendChild(mainHtmlElement);
 
     /** Evaluates OpenUserSession for an existing sessionId from cookies and promises a response. */
-    async function openSession(): Promise<securityApiM.OpenUserSessionResponse> {
+    async function openSession(): Promise<Maybe<securityApiM.OpenUserSessionResponse>> {
         const credentials = securityApiM.ExistingSessionCredentials.create();
         credentials.existingSessionId = sessionId;
 
         const openSession = securityApiM.OpenUserSession.create();
         openSession.credentials = credentials;
-        openSession.noExceptionOnFailure = true;
 
-        return openSession.EvalAndGet(connection.evaluator());
+        return openSession.EvalAndGetReasoned(connection.evaluator());
     }
 
     /** Evaluates ResolveHxApplication for domainId and useCases from the settings. */

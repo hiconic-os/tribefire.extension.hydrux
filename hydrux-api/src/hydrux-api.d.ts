@@ -1,6 +1,6 @@
 import { eval_, service, session, modelpath, remote, reason, reflection } from "../tribefire.js.tf-js-api-3.0~/tf-js-api.js";
 import * as hxM from "../tribefire.extension.hydrux.hydrux-deployment-model-2.1~/ensure-hydrux-deployment-model.js";
-import * as jsM from "../tribefire.extension.js.js-deployment-model-3.0~/ensure-js-deployment-model.js";
+import * as jsM from "../tribefire.cortex.js-deployment-model-3.0~/ensure-js-deployment-model.js";
 import { DispatchableRequest, ServiceRequest, CallbackPushAddressing } from "../com.braintribe.gm.service-api-model-2.0~/ensure-service-api-model.js";
 import { NotFound } from "../com.braintribe.gm.essential-reason-model-2.0~/ensure-essential-reason-model.js";
 import EntityType = reflection.EntityType;

@@ -33,10 +33,17 @@ import com.braintribe.model.processing.session.api.managed.ModelAccessoryFactory
 import com.braintribe.utils.FileTools;
 import com.braintribe.utils.template.Template;
 
+import tribefire.extension.hydrux._HydruxModule_;
 import tribefire.extension.hydrux.model.deployment.HxApplication;
 import tribefire.extension.hydrux.processor.HxRequestProcessor;
 
 /**
+ * URL pattern:<br>
+ * <code>/hydrux/domainId[/useCase1+useCase2]</code>
+ * <p>
+ * Resource (currently only debug.js supported): <br>
+ * <code>/hydrux/hydrux-resource/resourceName</code>
+ * 
  * @author peter.gazdik
  */
 public class HydruxServlet extends HttpServlet {
@@ -58,6 +65,8 @@ public class HydruxServlet extends HttpServlet {
 	private static final String HX_DEBUG_PARAM = "hxdebug";
 	private static final String HX_FRESH_TEMPLATE_PARAM = "hxfresh";
 
+	private static final String tfJsGroupId = "tribefire.js";
+	private static final String tfJsArtifactId = "tf-js";
 	private static final String tfJsVersion = "3.0";
 
 	private ModelAccessoryFactory modelAccessoryFactory;
@@ -193,6 +202,8 @@ public class HydruxServlet extends HttpServlet {
 		}
 
 		private String renderHtml(HxApplication hxApplication, String protoModule) {
+			String x = _HydruxModule_.version;
+			
 			TfUxHostSettingsBuilder settingsBuilder = new TfUxHostSettingsBuilder();
 			settingsBuilder.add("servicesUrl", servicesUrl);
 			settingsBuilder.add("webSocketUrl", webSocketUrl);
@@ -208,8 +219,8 @@ public class HydruxServlet extends HttpServlet {
 					"HYDRUX_TITLE", hxApplication.getTitle(), //
 					"TF_UX_HOST_SETTINGS", settingsBuilder.build(), //
 					"SERVICES_URL", servicesUrl, //
-					"TRIBEFIRE_JS_ARTIFACT", "tribefire.js.tf-js-" + tfJsVersion + "~", //
-					"HYDRUX_PLATFORM_ARTIFACT", "tribefire.extension.hydrux.hydrux-platform-2.1~", //
+					"TRIBEFIRE_JS_ARTIFACT", tfJsGroupId + "." + tfJsArtifactId + "-" + tfJsVersion + "~", //
+					"HYDRUX_PLATFORM_ARTIFACT", _HydruxModule_.groupId + ".hydrux-platform-" + "2.1" + "~", //
 					"DEBUG_SCRIPT", debugScript));
 			return text;
 		}
