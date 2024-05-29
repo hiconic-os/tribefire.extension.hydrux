@@ -39,7 +39,7 @@ import tribefire.extension.hydrux.processor.HxRequestProcessor;
 
 /**
  * URL pattern:<br>
- * <code>/hydrux/domainId[/useCase1+useCase2]</code>
+ * <code>/hydrux/domainId[/useCase1+useCase2+...]</code>
  * <p>
  * Resource (currently only debug.js supported): <br>
  * <code>/hydrux/hydrux-resource/resourceName</code>
@@ -202,8 +202,6 @@ public class HydruxServlet extends HttpServlet {
 		}
 
 		private String renderHtml(HxApplication hxApplication, String protoModule) {
-			String x = _HydruxModule_.version;
-			
 			TfUxHostSettingsBuilder settingsBuilder = new TfUxHostSettingsBuilder();
 			settingsBuilder.add("servicesUrl", servicesUrl);
 			settingsBuilder.add("webSocketUrl", webSocketUrl);
@@ -220,9 +218,21 @@ public class HydruxServlet extends HttpServlet {
 					"TF_UX_HOST_SETTINGS", settingsBuilder.build(), //
 					"SERVICES_URL", servicesUrl, //
 					"TRIBEFIRE_JS_ARTIFACT", tfJsGroupId + "." + tfJsArtifactId + "-" + tfJsVersion + "~", //
-					"HYDRUX_PLATFORM_ARTIFACT", _HydruxModule_.groupId + ".hydrux-platform-" + "2.1" + "~", //
+					"HYDRUX_PLATFORM_ARTIFACT", _HydruxModule_.groupId + ".hydrux-platform-" + hydruxMajorMinor() + "~", //
 					"DEBUG_SCRIPT", debugScript));
 			return text;
+		}
+
+		private String hydruxMajorMinor() {
+			return removeRevision(_HydruxModule_.version);
+		}
+
+		private String removeRevision(String version) {
+			int f = version.indexOf('.');
+			int l = version.lastIndexOf('.');
+			if (f < 0 || l < 0 || f == l)
+				throw new IllegalArgumentException("Unexpected version format. Version: " + version);
+			return version.substring(0, l);
 		}
 
 		private Maybe<String> resolvePrototypingModule() {
