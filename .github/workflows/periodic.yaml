@@ -1,0 +1,14 @@
+name: Periodic
+
+on:
+  schedule:
+    - cron: "30 12 * * 6"   # Every Saturday 12:30 UCT
+    - cron: "30 3 * * 3"   # Every Wednesday  3:30 UCT
+
+jobs:
+  run:
+    uses: hiconic-os/hiconic.ci.workflows/.github/workflows/range.yaml@main
+    secrets: inherit
+    with:
+      range: "."
+      publish: false
