@@ -22,17 +22,17 @@ import com.braintribe.model.generic.reflection.EnumTypes;
 /**
  * @author peter.gazdik
  */
-public enum HxWindowCustomizability implements EnumBase {
+public enum HxWindowCustomizability implements EnumBase<HxWindowCustomizability> {
 
 	none,
 	draggable,
 	/** this implies draggable */
 	resizable;
 
-	public static final EnumType T = EnumTypes.T(HxWindowCustomizability.class);
+	public static final EnumType<HxWindowCustomizability> T = EnumTypes.T(HxWindowCustomizability.class);
 
 	@Override
-	public EnumType type() {
+	public EnumType<HxWindowCustomizability> type() {
 		return T;
 	}
 

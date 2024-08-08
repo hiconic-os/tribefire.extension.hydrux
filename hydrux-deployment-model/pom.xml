@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
 Copyright BRAINTRIBE TECHNOLOGY GMBH, Austria, 2002-2022
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ limitations under the License.
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>com.braintribe.gm</groupId>
             <artifactId>meta-model</artifactId>
@@ -47,5 +47,11 @@ limitations under the License.
             <?tag asset?>
             <?tag js?>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.braintribe.gm</groupId>
+            <artifactId>basic-value-descriptor-model</artifactId>
+            <version>${V.com.braintribe.gm}</version>
+            <?tag asset ?>
+        </dependency>
+    </dependencies>
 </project>
